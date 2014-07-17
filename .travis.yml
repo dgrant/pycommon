@@ -1,0 +1,9 @@
+language: python
+python:
+  - "3.4"
+install:
+  - pip install coverage coveralls
+script:
+  - nosetests --with-coverage --cover-inclusive
+after_success:
+  - coveralls

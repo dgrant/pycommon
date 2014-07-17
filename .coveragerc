@@ -1,0 +1,9 @@
+[run]
+branch = True
+omit = /home/travis/virtualenv/*
+       /usr/lib/**/*
+       /usr/local/lib/**/*
+       */test_*.py
+[report]
+exclude_lines =
+    if __name__ == .__main__.:
