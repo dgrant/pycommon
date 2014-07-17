@@ -3,7 +3,7 @@ import collections
 import unittest
 from mock import patch, Mock, call, MagicMock, sentinel
 
-import pycommon
+from pycommon import pycommon
 
 def mock_open(mock=None, read_data='', lines=None):
     """
@@ -72,7 +72,7 @@ class TestLowLevel(unittest.TestCase):
     def test_write_csv_file(self, csv_writer_mock):
         rows = [['a', 'b'], ['c', 'd']]
         m = mock_open()
-        with patch('pycommon.open', m, create=True):
+        with patch('pycommon.pycommon.open', m, create=True):
             pycommon.write_csv_file('filename', rows)
 
             m.assert_called_with('filename', 'w')
@@ -88,7 +88,7 @@ class TestLowLevel(unittest.TestCase):
         rows = [['a', 'b'], ['c', 'd']]
         header = ['head', 'er']
         m = mock_open()
-        with patch('pycommon.open', m, create=True):
+        with patch('pycommon.pycommon.open', m, create=True):
             # Call method-under-test
             pycommon.write_csv_file('filename', rows, header=header)
 

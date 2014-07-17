@@ -2,3 +2,5 @@ __pycache__
 .coverage
 .idea
 cover
+MANIFEST
+dist
