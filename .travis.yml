@@ -2,7 +2,7 @@ language: python
 python:
   - "3.4"
 install:
-  - pip install coverage coveralls
+  - pip install coverage coveralls six
 script:
   - nosetests --with-coverage --cover-inclusive
 after_success:
