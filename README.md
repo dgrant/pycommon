@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dgrant/pycommon.png)](https://travis-ci.org/dgrant/pycommon) [![Coverage Status](https://coveralls.io/repos/dgrant/pycommon/badge.png)](https://coveralls.io/r/dgrant/pycommon)
+
 A collection of useful utilities
 
 Installing
