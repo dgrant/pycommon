@@ -1,3 +1,5 @@
+[](https://travis-ci.org/dgrant/pycommon.svg?branch=master)
+
 A collection of useful utilities
 
 Installing
