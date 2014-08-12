@@ -16,4 +16,5 @@ Standards
 * All code unit tested and integration tested with 100% coverage.
 * No breaking backwards compatibility
 * Cross-platform.
-* Supports Python 3.2, 3.3, 3.4
+* Supports Python 3.2, 3.3, 3.4 on Linux
+* Supports Pyton 3.3, 3.4 on Windows (because I can't test 3.2 on Windows)
