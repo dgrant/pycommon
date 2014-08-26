@@ -23,5 +23,3 @@ class TestHash(unittest.TestCase):
         self.assertEqual(md5_instance.update.mock_calls,
                          [call('a'.encode('utf8')), call('b'.encode('utf8'))])
         self.assertEqual(digest, sentinel.digest)
-
-

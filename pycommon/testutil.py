@@ -1,7 +1,7 @@
 import _io
 from mock import MagicMock
 
-def mock_open(mock=None, read_data='', lines=None):
+def mock_open(read_data='', lines=None):
     """
     A helper function to create a mock to replace the use of `open`. It works
     for `open` called directly or used as a context manager.
