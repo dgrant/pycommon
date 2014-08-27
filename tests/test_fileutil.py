@@ -3,6 +3,7 @@ import os
 import shutil
 import unittest
 from mock import patch, call
+from os.path import join as j
 
 from pycommon.testutil import mock_open
 
@@ -91,12 +92,12 @@ class TestMatchingLineIterator(unittest.TestCase):
 class TestFileIterator(unittest.TestCase):
     def setUp(self):
         os.mkdir('temp1')
-        os.mkdir('temp1/temp2')
-        os.mkdir('temp1/temp2/temp3')
-        open('temp1/file1.txt', 'w')
-        open('temp1/temp2/file2.txt', 'w')
-        open('temp1/temp2/temp3/file3.txt', 'w')
-        open('temp1/file4.txt', 'w')
+        os.mkdir(j('temp1', 'temp2'))
+        os.mkdir(j('temp1', 'temp2', 'temp3'))
+        open(j('temp1', 'file1.txt'), 'w')
+        open(j('temp1', 'temp2', 'file2.txt'), 'w')
+        open(j('temp1', 'temp2', 'temp3', 'file3.txt'), 'w')
+        open(j('temp1', 'file4.txt'), 'w')
 
     def tearDown(self):
         shutil.rmtree('temp1')
@@ -104,4 +105,4 @@ class TestFileIterator(unittest.TestCase):
     def test(self):
         files = list(fileutil.file_iterator('temp1'))
 
-        self.assertEqual(files, ['temp1/file4.txt', 'temp1/file1.txt', 'temp1/temp2/file2.txt', 'temp1/temp2/temp3/file3.txt'])
+        self.assertEqual(files, [j('temp1', 'file4.txt'), j('temp1', 'file1.txt'), j('temp1', 'temp2', 'file2.txt'), j('temp1', 'temp2', 'temp3', 'file3.txt')])

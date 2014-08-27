@@ -1,5 +1,5 @@
 import os
-
+from os.path import join as j
 import unittest
 from pycommon import experimental
 from mock import patch, call
@@ -56,8 +56,8 @@ class Test_mkdir2(unittest.TestCase):
 
 
     def test_expand_paths(self):
-        ret = experimental._expand_paths('a/b')
-        self.assertEqual(ret, ['a/b'])
+        ret = experimental._expand_paths(j('a', 'b'))
+        self.assertEqual(ret, [j('a', 'b')])
 
     def test_expand_paths1(self):
         ret = experimental._expand_paths('a')
@@ -68,20 +68,20 @@ class Test_mkdir2(unittest.TestCase):
         self.assertEqual(ret, ['a', 'b', 'c'])
 
     def test_expand_paths3(self):
-        ret = experimental._expand_paths('{a,b,c}/d')
-        self.assertEqual(ret, ['a/d', 'b/d', 'c/d'])
+        ret = experimental._expand_paths(j('{a,b,c}', 'd'))
+        self.assertEqual(ret, [j('a', 'd'), j('b', 'd'), j('c', 'd')])
 
     def test_expand_paths4(self):
-        ret = experimental._expand_paths('a/{b,c,c}')
-        self.assertEqual(ret, ['a/b', 'a/c', 'a/d'])
+        ret = experimental._expand_paths(j('a', '{b,c,c}'))
+        self.assertEqual(ret, [j('a', 'b'), j('a', 'c'), j('a', 'd')])
 
     def test_expand_paths4(self):
-        ret = experimental._expand_paths('a/{b,c}/d')
-        self.assertEqual(ret, ['a/b/d', 'a/c/d'])
+        ret = experimental._expand_paths(j('a', '{b,c}', 'd'))
+        self.assertEqual(ret, [j('a', 'b', 'd'), j('a', 'c', 'd')])
 
     def test_expand_paths4(self):
-        ret = experimental._expand_paths('a/{b,c}/d/{e,f}')
-        self.assertEqual(['a/b/d/e', 'a/b/d/f', 'a/c/d/e', 'a/c/d/f'], ret)
+        ret = experimental._expand_paths(j('a', '{b,c}', 'd', '{e,f}'))
+        self.assertEqual([j('a', 'b', 'd', 'e'), j('a', 'b', 'd', 'f'), j('a', 'c', 'd', 'e'), j('a', 'c', 'd', 'f')], ret)
 
     # def test_expand_paths5(self):
     #     ret = experimental._expand_paths('a{aa,bb}')
