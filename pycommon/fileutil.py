@@ -31,6 +31,14 @@ def delete(path_or_paths):
 
 
 def mkdir(path_or_paths, mode=0o777, exist_ok=True):
+    """
+    Slight variation of os.makedirs. exist_ok is True by default. And it accepts a list of paths as input.
+
+    :param path_or_paths: a path or a list of paths
+    :param mode: file mode (default is 777)
+    :param exist_ok: True (default) if you don't want this function to complain in a directory already exists
+    :return:
+    """
     paths = util.str_or_list_to_list(path_or_paths)
 
     for path in paths:
@@ -92,6 +100,6 @@ def matchingline_iterator(path, regex_pat):
     """
     obj = re.compile(regex_pat)
     for line in open(path):
-        match_obj = obj.search(regex_pat)
+        match_obj = obj.search(line)
         if match_obj is not None:
             yield line

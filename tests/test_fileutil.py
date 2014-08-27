@@ -1,7 +1,10 @@
 import errno
 import os
+import shutil
 import unittest
 from mock import patch, call
+
+from pycommon.testutil import mock_open
 
 from pycommon import fileutil
 
@@ -75,3 +78,30 @@ class TestFileUtil_delete(unittest.TestCase):
 
         # Call method-under-test
         self.assertRaises(OSError, fileutil.delete, [file_name, dir_name])
+
+
+class TestMatchingLineIterator(unittest.TestCase):
+
+    def test(self):
+        m = mock_open(lines=['ERROR: line 1', 'WARNING: line 2', 'ERROR: line 3'])
+        with patch('pycommon.fileutil.open', m, create=True):
+            filtered_lines = list(fileutil.matchingline_iterator('file_name.txt', 'ERROR:.*'))
+        self.assertEqual(filtered_lines, ['ERROR: line 1', 'ERROR: line 3'])
+
+class TestFileIterator(unittest.TestCase):
+    def setUp(self):
+        os.mkdir('temp1')
+        os.mkdir('temp1/temp2')
+        os.mkdir('temp1/temp2/temp3')
+        open('temp1/file1.txt', 'w')
+        open('temp1/temp2/file2.txt', 'w')
+        open('temp1/temp2/temp3/file3.txt', 'w')
+        open('temp1/file4.txt', 'w')
+
+    def tearDown(self):
+        shutil.rmtree('temp1')
+
+    def test(self):
+        files = list(fileutil.file_iterator('temp1'))
+
+        self.assertEqual(files, ['temp1/file4.txt', 'temp1/file1.txt', 'temp1/temp2/file2.txt', 'temp1/temp2/temp3/file3.txt'])
