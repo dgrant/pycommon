@@ -104,5 +104,5 @@ class TestFileIterator(unittest.TestCase):
 
     def test(self):
         files = list(fileutil.file_iterator('temp1'))
-
-        self.assertEqual(files, [j('temp1', 'file4.txt'), j('temp1', 'file1.txt'), j('temp1', 'temp2', 'file2.txt'), j('temp1', 'temp2', 'temp3', 'file3.txt')])
+        self.assertEqual(len(files), 4)
+        self.assertEqual(set(files), set([j('temp1', 'file4.txt'), j('temp1', 'file1.txt'), j('temp1', 'temp2', 'file2.txt'), j('temp1', 'temp2', 'temp3', 'file3.txt')]))
