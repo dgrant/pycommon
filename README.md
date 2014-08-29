@@ -1,6 +1,6 @@
 Linux build: [![Build Status](https://travis-ci.org/dgrant/pycommon.svg?branch=master)](https://travis-ci.org/dgrant/pycommon) [![Coverage Status](https://coveralls.io/repos/dgrant/pycommon/badge.png?branch=master)](https://coveralls.io/r/dgrant/pycommon?branch=master)
 
-Windows build: [![Build status](https://ci.appveyor.com/api/projects/status/96kwy8819r627u19)](https://ci.appveyor.com/project/dgrant/pycommon)
+Windows build: [![Build status](https://ci.appveyor.com/api/projects/status/96kwy8819r627u19/branch/master)](https://ci.appveyor.com/project/dgrant/pycommon/branch/master)
 
 A collection of useful utilities
 
