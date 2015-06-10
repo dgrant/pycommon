@@ -4,6 +4,7 @@ import shutil
 import unittest
 from mock import patch, call
 from os.path import join as j
+import tempfile
 
 from pycommon.testutil import mock_open
 
@@ -79,6 +80,77 @@ class TestFileUtil_delete(unittest.TestCase):
 
         # Call method-under-test
         self.assertRaises(OSError, fileutil.delete, [file_name, dir_name])
+
+class TestMkDir(unittest.TestCase):
+
+    def setUp(self):
+        self.tempdir = tempfile.mkdtemp()
+
+    def tearDown(self):
+        if os.path.exists(self.tempdir):
+            shutil.rmtree(self.tempdir)
+
+    def test_it_mkdir(self):
+        testpath = os.path.join(self.tempdir, 'blah1')
+
+        self.assertFalse(os.path.exists(testpath))
+
+        fileutil.mkdir(testpath)
+
+        self.assertTrue(os.path.exists(testpath))
+
+    def test_it_samepathtwice(self):
+        testpath = os.path.join(self.tempdir, 'blah1')
+
+        self.assertFalse(os.path.exists(testpath))
+
+        fileutil.mkdir(testpath)
+        fileutil.mkdir(testpath)
+
+        self.assertTrue(os.path.exists(testpath))
+
+    def test_it_mkdir_multipledirs(self):
+        testpaths = [os.path.join(self.tempdir, 'blah2'), os.path.join(self.tempdir, 'blah3')]
+
+        for path in testpaths:
+            self.assertFalse(os.path.exists(path))
+
+        fileutil.mkdir(testpaths)
+
+        for path in testpaths:
+            self.assertTrue(os.path.exists(path))
+
+    @patch('os.makedirs')
+    def test_mkdir(self, makedirs_mock):
+        # Setup
+        dir_name = 'a_dir'
+
+        # Call method-under-test
+        fileutil.mkdir(dir_name)
+
+        # Verification
+        self.assertEqual(makedirs_mock.mock_calls, [call(dir_name, mode=0o777, exist_ok=True)])
+
+
+class TestReplaceInFile(unittest.TestCase):
+
+    def setUp(self):
+        self.tempdir = tempfile.mkdtemp()
+
+    def tearDown(self):
+        if os.path.exists(self.tempdir):
+            shutil.rmtree(self.tempdir)
+
+    def test(self):
+        testfile = os.path.join(self.tempdir, 'testfile')
+        with open(testfile, 'w') as fp:
+            fp.write('blah the quick brown fox blah\nblah')
+        fileutil.replace_in_file(testfile, 'blah', 'meh')
+
+        with open(testfile) as fp:
+            contents = fp.read()
+
+        self.assertEqual(contents, 'meh the quick brown fox meh\nmeh')
 
 
 class TestMatchingLineIterator(unittest.TestCase):

@@ -13,8 +13,6 @@ def memoize(obj):
         """ The wrapper function """
         key = str(args) + str(kwargs)
         if key not in cache:
-            print("args=", args)
-            print("kwargs=", kwargs)
             cache[key] = obj(*args, **kwargs)
         return cache[key]
     return memoizer

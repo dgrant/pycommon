@@ -42,12 +42,10 @@ def mkdir(path_or_paths, mode=0o777, exist_ok=True):
     paths = util.str_or_list_to_list(path_or_paths)
 
     for path in paths:
-        os.makedirs(path, exist_ok=exist_ok, mode=mode)
+        os.makedirs(path, mode=mode, exist_ok=exist_ok)
 
 def replace_in_file(path, search_str, repl_str, encoding=None):
     """
-    BETA
-
     Replace a string in a file.
 
     :param path: the path to replace string in
@@ -58,14 +56,15 @@ def replace_in_file(path, search_str, repl_str, encoding=None):
     with open(path, 'r', newline='', encoding=encoding) as fp:
         lines = fp.readlines()
 
+    # Write to a temp file, the original lines and any lines that have changed
+    (temp_file_handle, temp_file_name) = tempfile.mkstemp()
     try:
-        # Write to a temp file, the original lines and any lines that have changed
-        (temp_file_handle, temp_file_name) = tempfile.mkstemp()
         with os.fdopen(temp_file_handle, 'w') as fp:
             for line in lines:
                 loc = line.find(search_str)
-                if loc != -1:
-                    line = line[:loc] + repl_str + line[(loc + search_str):]
+                while loc != -1:
+                    line = line[:loc] + repl_str + line[(loc + len(search_str)):]
+                    loc = line.find(search_str)
                 fp.write(line)
 
         # replace the original file with the temp
@@ -84,6 +83,10 @@ def file_iterator(path='.', ext=None):
         for path in file_iterator(r'c:\windows', '.dll'):
             print path
     """
+    if os.path.isfile(path):
+        yield path
+        return
+
     for root, _, files in os.walk(path):
         for _file in files:
             if ext == None or os.path.splitext(_file)[1].lower() == ext:
