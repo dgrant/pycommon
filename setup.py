@@ -5,7 +5,7 @@ from distutils.core import setup
 setup(
     name='pycommon',
     packages=['pycommon'],
-    version='0.1',
+    version='0.2',
     description='Miscellaneous utilties',
     author='David Grant',
     author_email='davidgrant@gmail.com',
