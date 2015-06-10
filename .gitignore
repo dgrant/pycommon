@@ -1,6 +1,8 @@
 __pycache__
-.coverage
-.idea
-cover
-MANIFEST
-dist
+*.pyc
+/.coverage
+/.idea
+/cover
+/MANIFEST
+/dist
+/docs/_build
