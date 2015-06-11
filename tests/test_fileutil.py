@@ -120,17 +120,6 @@ class TestMkDir(unittest.TestCase):
         for path in testpaths:
             self.assertTrue(os.path.exists(path))
 
-    @patch('os.makedirs')
-    def test_mkdir(self, makedirs_mock):
-        # Setup
-        dir_name = 'a_dir'
-
-        # Call method-under-test
-        fileutil.mkdir(dir_name)
-
-        # Verification
-        self.assertEqual(makedirs_mock.mock_calls, [call(dir_name, mode=0o777, exist_ok=True)])
-
 
 class TestReplaceInFile(unittest.TestCase):
 

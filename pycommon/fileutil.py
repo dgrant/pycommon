@@ -1,6 +1,7 @@
 import errno
 import os
 import re
+import six
 import shutil
 import tempfile
 
@@ -42,7 +43,16 @@ def mkdir(path_or_paths, mode=0o777, exist_ok=True):
     paths = util.str_or_list_to_list(path_or_paths)
 
     for path in paths:
-        os.makedirs(path, mode=mode, exist_ok=exist_ok)
+        if six.PY2:
+            try:
+                os.makedirs(path)
+            except OSError as exc: # Python >2.5
+                if exc.errno == errno.EEXIST and os.path.isdir(path):
+                    pass
+                else:
+                    raise
+        elif six.PY3:
+            os.makedirs(path, mode=mode, exist_ok=exist_ok)
 
 def replace_in_file(path, search_str, repl_str, encoding=None):
     """
@@ -53,8 +63,12 @@ def replace_in_file(path, search_str, repl_str, encoding=None):
     :param repl_str: the string to replace
     :return: nothing
     """
-    with open(path, 'r', newline='', encoding=encoding) as fp:
-        lines = fp.readlines()
+    if six.PY2:
+        with open(path, 'r') as fp:
+            lines = fp.readlines()
+    elif six.PY3:
+        with open(path, 'r', encoding=encoding) as fp:
+            lines = fp.readlines()
 
     # Write to a temp file, the original lines and any lines that have changed
     (temp_file_handle, temp_file_name) = tempfile.mkstemp()

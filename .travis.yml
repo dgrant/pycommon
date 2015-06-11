@@ -4,7 +4,7 @@ python:
   - "3.3"
   - "3.4"
 install:
-  - pip install coverage coveralls
+  - pip install -r requirements.txt
 script:
   - nosetests --with-coverage --cover-inclusive
 after_success:

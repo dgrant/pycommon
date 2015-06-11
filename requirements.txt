@@ -1,0 +1,6 @@
+coverage
+coveralls
+pyflakes
+pylint
+nose
+mock

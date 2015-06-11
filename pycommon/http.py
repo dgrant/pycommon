@@ -1,4 +1,4 @@
-import urllib
+from six.moves import urllib
 
 def do_http_get(url, params=None):
     """
