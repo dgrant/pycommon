@@ -32,5 +32,5 @@ class TestHash(unittest.TestCase):
         with open(testfile2, 'w') as fp:
             fp.write('e f\n')
         md5 = hash.md5sum_file(self.tempdir)
-        self.assertEqual(md5, 'b76956f2dbef450aca6a05392b8b176c')
+        self.assertEqual(md5, 'ebcbfa0c9d86a34e449aa706a1ea2fb9')
 

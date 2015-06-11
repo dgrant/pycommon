@@ -11,7 +11,11 @@ def md5sum_file(filename):
     filenames = util.str_or_list_to_list(filename)
     md5sum = hashlib.md5()
     for filename in filenames:
-        for file in fileutil.file_iterator(filename):
+        # Need to turn the iternator into a list and then sort, to ensure that we get the same ordering of files
+        # all platforms.
+        files = [file for file in fileutil.file_iterator(filename)]
+        files.sort()
+        for file in files:
             _update_md5_sum(file, md5sum)
     return md5sum.hexdigest()
 
