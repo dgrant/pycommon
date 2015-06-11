@@ -82,6 +82,7 @@ def replace_in_file(path, search_str, repl_str, encoding=None):
                 fp.write(line)
 
         # replace the original file with the temp
+        delete(path)
         os.rename(temp_file_name, path)
     finally:
         delete(temp_file_name)
