@@ -4,3 +4,4 @@ pyflakes
 pylint
 nose
 mock
+six
