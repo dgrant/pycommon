@@ -3,7 +3,7 @@ Setup script
 """
 from distutils.core import setup
 
-VERSION = '0.3'
+VERSION = '0.3.2'
 setup(
     name='pycommon',
     packages=['pycommon'],
