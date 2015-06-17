@@ -22,7 +22,7 @@ class TestCsv(unittest.TestCase):
         csvutil.write_csv_file(filename, rows)
 
         contents = open(filename).read()
-        self.assertEqual(contents, 'a,b' + os.linesep + 'c,d' + os.linesep)
+        self.assertEqual(contents, 'a,b\nc,d\n')
 
     def test_write_csv_file_with_header(self):
         rows = [['a', 'b'], ['c', 'd']]
@@ -31,7 +31,7 @@ class TestCsv(unittest.TestCase):
         csvutil.write_csv_file(filename, rows, header=header)
 
         contents = open(filename).read()
-        self.assertEqual(contents, 'head,er' + os.linesep + 'a,b' + os.linesep + 'c,d' + os.linesep)
+        self.assertEqual(contents, 'head,er\na,b\nc,d\n')
 
 
     # @patch('csv.writer')

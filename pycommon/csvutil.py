@@ -12,7 +12,7 @@ def write_csv_file(filename, rows, header=None):
     """
 
     with open(filename, 'wt') as handle:
-        writer = csv.writer(handle, delimiter=',', lineterminator=os.linesep)
+        writer = csv.writer(handle, delimiter=',', lineterminator='\n')
         if header is not None:
             writer.writerow(header)
         for row in rows:
