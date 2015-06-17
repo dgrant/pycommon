@@ -1,5 +1,6 @@
 from six.moves.urllib.parse import urlencode
 from six.moves.urllib.request import urlopen
+import codecs
 
 def do_http_get(url, params=None):
     """
@@ -11,6 +12,5 @@ def do_http_get(url, params=None):
     """
     if params is not None:
         url = (url + '?%s') % urlencode(params)
-    # print('url=', url)
     url_handle = urlopen(url)
-    return url_handle.read().decode('utf8')
+    return codecs.decode(url_handle.read(), 'utf8', 'ignore')
