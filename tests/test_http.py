@@ -39,3 +39,9 @@ class TestHttp(unittest.TestCase):
         urlopen_mock.assert_called_once_with(url + "?a=1&b=2&c=3")
         urlopen_mock.return_value.read.return_value.decode.assert_called_once_with('utf8')
         self.assertEqual(ret, http_response_string)
+
+    def test_it_do_http_get(self):
+        url = 'http://www.cnn.com/search'
+        params = {'q': 'aabbcc'}
+
+        http.do_http_get(url, params=params)
