@@ -1,5 +1,4 @@
 import csv
-import os
 
 def write_csv_file(filename, rows, header=None):
     """
