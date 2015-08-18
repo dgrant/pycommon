@@ -167,3 +167,18 @@ class TestFileIterator(unittest.TestCase):
         files = list(fileutil.file_iterator('temp1'))
         self.assertEqual(len(files), 4)
         self.assertEqual(set(files), set([j('temp1', 'file4.txt'), j('temp1', 'file1.txt'), j('temp1', 'temp2', 'file2.txt'), j('temp1', 'temp2', 'temp3', 'file3.txt')]))
+
+class TestSortFile(unittest.TestCase):
+    def setUp(self):
+        fp = open(j('temp.txt'), 'w')
+        fp.writelines('\n'.join('the quick brown fox jumped over the lazy dog'.split()))
+        fp.write('\n')
+
+    def tearDown(self):
+        os.remove('temp.txt')
+
+    def test(self):
+        fileutil.sort_file('temp.txt')
+        fp = open(j('temp.txt'))
+        lines = fp.readlines()
+        print(lines)

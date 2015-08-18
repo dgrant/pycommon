@@ -121,3 +121,24 @@ def matchingline_iterator(path, regex_pat):
         match_obj = obj.search(line)
         if match_obj is not None:
             yield line
+
+def sort_file(path):
+    """
+    Sort contents of a file alphanumerically
+    :param path:
+    :return:
+    """
+    with open(path, 'r') as fp:
+        lines = fp.readlines()
+    lines.sort()
+    # Write to a temp file, the original lines and any lines that have changed
+    (temp_file_handle, temp_file_name) = tempfile.mkstemp()
+    try:
+        with os.fdopen(temp_file_handle, 'w') as fp:
+            fp.writelines(lines)
+
+        # replace the original file with the temp
+        delete(path)
+        shutil.move(temp_file_name, path)
+    finally:
+        delete(temp_file_name)
