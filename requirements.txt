@@ -1,6 +1,6 @@
 coverage==4.5.1
 coveralls==1.5.1
-pyflakes
+pyflakes==2.0.0
 pylint
 nose
 mock
