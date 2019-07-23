@@ -6,3 +6,4 @@ nose
 mock
 six
 ipython
+twine
